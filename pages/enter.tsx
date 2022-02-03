@@ -40,7 +40,7 @@ export default function Enter() {
             {method === 'email' ? (
             <input 
             type='email' 
-            className='appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-grey-400 focus:ring-orange-500 focus:borer-orange-500 focus:outline-none' 
+            className='appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-grey-400 focus:ring-orange-500 focus:border-orange-500 focus:outline-none' 
             required 
             />
             ) : null}
@@ -49,7 +49,7 @@ export default function Enter() {
                 <span>+82</span>
                 <input 
                 type='number' 
-                className='appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-grey-400 focus:ring-orange-500 focus:borer-orange-500 focus:outline-none'
+                className='appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-grey-400 focus:ring-orange-500 focus:border-orange-500 focus:outline-none'
                 required 
                 />
               </div>
