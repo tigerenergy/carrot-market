@@ -74,12 +74,15 @@ const Home: NextPage = () => {
     //     </div>
     //   </div>
     // </div>
-        <form className='flex flex-col space-y-2 p-5'>
-          <input type='text' required  placeholder='Username' className='border p-1 peer border-gray-400 rounded-lg'/>
-          <span className='hidden peer-invalid:block peer-invalid:text-red-500'>아이디를 입력해주세요</span>
-          <span className='hidden peer-valid:block peer-valid:text-indigo-500'>😀정확히 천천히 입력해주세요</span>
-          <input type='submit' value='Login'className='bg-white required:border-2 border-red-500'/>
-        </form>
+        // <form className='flex flex-col space-y-2 p-5'>
+        //   <input type='text' required  placeholder='Username' className='border p-1 peer border-gray-400 rounded-lg'/>
+        //   <span className='hidden peer-invalid:block peer-invalid:text-red-500'>아이디를 입력해주세요</span>
+        //   <span className='hidden peer-valid:block peer-valid:text-indigo-500'>😀정확히 천천히 입력해주세요</span>
+        //   <input type='submit' value='Login'className='bg-white required:border-2 border-red-500'/>
+        // </form>
+        <div className='flex flex-col space-y-2 p-5'>
+          <p className='first-letter:text-7xl first-letter:hover:text-fuchsia-500'>Fuck you developers</p>
+        </div>
   )
 }
 export default Home
