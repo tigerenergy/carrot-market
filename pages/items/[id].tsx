@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
-import Layout from "../../components/layout";
+import type { NextPage } from "next"
+import Layout from "../../components/layout"
 
 const ItemDetail: NextPage = () => {
   return (
@@ -12,7 +12,7 @@ const ItemDetail: NextPage = () => {
             <div>
               <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
               <p className="text-xs font-medium text-gray-500">
-                View profile &rarr;
+                View profile &rarr
               </p>
             </div>
           </div>
@@ -20,12 +20,12 @@ const ItemDetail: NextPage = () => {
             <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
             <span className="text-2xl block mt-3 text-gray-900">$140</span>
             <p className=" my-6 text-gray-700">
-              My money&apos;s in that office, right? If she start giving me some
-              bullshit about it ain&apos;t there, and we got to go someplace
-              else and get it, I&apos;m gonna shoot you in the head then and
-              there. Then I&apos;m gonna shoot that bitch in the kneecaps, find
+              My money&aposs in that office, right? If she start giving me some
+              bullshit about it ain&apost there, and we got to go someplace
+              else and get it, I&aposm gonna shoot you in the head then and
+              there. Then I&aposm gonna shoot that bitch in the kneecaps, find
               out where my goddamn money is. She gonna tell me too. Hey, look at
-              me when I&apos;m talking to you, motherfucker. You listen: we go
+              me when I&aposm talking to you, motherfucker. You listen: we go
               in there, and that ni**a Winston or anybody else is in there, you
               the first motherfucker to get shot. You understand?
             </p>
@@ -67,7 +67,7 @@ const ItemDetail: NextPage = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default ItemDetail;
+export default ItemDetail

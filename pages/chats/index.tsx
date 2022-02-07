@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
-import Layout from "../../components/layout";
+import type { NextPage } from "next"
+import Layout from "../../components/layout"
 
 const Chats: NextPage = () => {
   return (
@@ -21,7 +21,7 @@ const Chats: NextPage = () => {
         ))}
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Chats;
+export default Chats

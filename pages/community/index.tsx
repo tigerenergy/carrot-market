@@ -1,9 +1,9 @@
-import type { NextPage } from "next";
-import Layout from "../../components/layout";
+import type { NextPage } from "next"
+import Layout from "../../components/layout"
 
 const Community: NextPage = () => {
   return (
-    <Layout hasTabBar title="동내생활">
+    <Layout hasTabBar title="동네생활">
       <div className="space-y-4 divide-y-[2px]">
         {[1, 2, 3, 4, 5, 6].map((_, i) => (
           <div
@@ -77,7 +77,7 @@ const Community: NextPage = () => {
         </button>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Community;
+export default Community
