@@ -1,6 +1,7 @@
-import type { NextPage } from 'next';
+import type { NextPage } from 'next'
 
-const Write: NextPage = () => {
+const Write: NextPage = () => 
+{
   return (
     <form className='px-4 py-10'>
       <textarea

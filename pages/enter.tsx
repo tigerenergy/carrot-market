@@ -3,7 +3,8 @@ import { cls } from '../libs/utils'
 
 
 
-export default function Enter() {
+export default function Enter() 
+{
   const [method, setMethod] = useState<'email' | 'phone'>('email')
   const onEmailClick = () => setMethod('email')
   const onPhoneClick = () => setMethod('phone')

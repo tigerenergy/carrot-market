@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 
-const ChatDetail: NextPage = () => {
+const ChatDetail: NextPage = () => 
+{
   return (
     <div className='py-10 px-4 space-y-4'>
       <div className='flex items-start space-x-2'>

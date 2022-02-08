@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 
-const Loved: NextPage = () => {
+const Loved: NextPage = () => 
+{
   return (
     <div className='flex flex-col space-y-5 py-10'>
       {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
