@@ -8,7 +8,7 @@ const Live: NextPage = () =>
       <div className=' divide-y-[1px] space-y-4'>
         {[1, 1, 1, 1, 1, 1, 1].map((_, i) => (
           <div className='pt-4  px-4' key={i}>
-            <div className='w-full rounded-md shadow-sm bg-slate-300 aspect-video' />
+            <div className='w-full rounded-md shadow-sm bg-slate-300 aspect-video cursor-pointer' />
             <h1 className='text-2xl mt-2 font-bold text-gray-900'>
               Galaxy S50
             </h1>
