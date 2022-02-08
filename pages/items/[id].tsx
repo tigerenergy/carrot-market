@@ -1,11 +1,12 @@
 import type { NextPage } from 'next'
+import Button from '../../components/button'
 import Layout from '../../components/layout'
 
 const ItemDetail: NextPage = () => 
 {
-  return ( 
+  return (
     <Layout canGoBack>
-      <div className='px-4 py-10'>
+      <div className='px-4  py-4'>
         <div className='mb-8'>
           <div className='h-96 bg-slate-300' />
           <div className='flex cursor-pointer py-3 border-t border-b items-center space-x-3'>
@@ -21,19 +22,17 @@ const ItemDetail: NextPage = () =>
             <h1 className='text-3xl font-bold text-gray-900'>Galaxy S50</h1>
             <span className='text-2xl block mt-3 text-gray-900'>$140</span>
             <p className=' my-6 text-gray-700'>
-              My money&aposs in that office, right? If she start giving me some
-              bullshit about it ain&apost there, and we got to go someplace
-              else and get it, I&aposm gonna shoot you in the head then and
-              there. Then I&aposm gonna shoot that bitch in the kneecaps, find
+              My money&aposs; in that office, right? If she start giving me some
+              bullshit about it ain&apost; there, and we got to go someplace
+              else and get it, I&aposm; gonna shoot you in the head then and
+              there. Then I&aposm; gonna shoot that bitch in the kneecaps, find
               out where my goddamn money is. She gonna tell me too. Hey, look at
-              me when I&aposm talking to you, motherfucker. You listen: we go
+              me when I&aposm; talking to you, motherfucker. You listen: we go
               in there, and that ni**a Winston or anybody else is in there, you
               the first motherfucker to get shot. You understand?
             </p>
             <div className='flex items-center justify-between space-x-2'>
-              <button className='flex-1 bg-orange-500 text-white py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium hover:bg-orange-600 focus:ring-orange-500 '>
-                Talk to seller
-              </button>
+              <Button large text='Talk to seller' />
               <button className='p-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500'>
                 <svg
                   className='h-6 w-6 '
@@ -70,5 +69,4 @@ const ItemDetail: NextPage = () =>
     </Layout>
   )
 }
-
 export default ItemDetail
