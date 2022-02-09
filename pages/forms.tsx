@@ -1,19 +1,32 @@
 import { useForm } from 'react-hook-form'
 
 
+interface LoginForm
+{
+    username: string,
+    email: string,
+    password: string
+}
+
+
+
 export default function Forms()
 {   
-    const { register, handleSubmit} = useForm()
-    const onValid = () =>
+    const { register, handleSubmit} = useForm<LoginForm>()
+    const onValid = (data: LoginForm) =>
     {
         console.log('im Ok!')
     }
+    const onInvalid = (errors: any) =>
+    {
+        console.log(errors)
+    }
     return(
-        <form onSubmit={handleSubmit(onValid)}>
+        <form onSubmit={handleSubmit(onValid, onInvalid)}>
             <input 
             {...register('username',
                 {
-                    required: true,
+                    required: 'username is required',
                     
                 }
               )
@@ -25,7 +38,12 @@ export default function Forms()
             <input 
             {...register('email',
                 {
-                    required: true,
+                    required: 'email is required',
+                    minLength:
+                    {
+                        message: 'The username should be longer than 5 chars.',
+                        value: 5,
+                    },
                     
                 }
               )
@@ -37,7 +55,7 @@ export default function Forms()
             <input 
             {...register('password',
                 {
-                    required: true,
+                    required: 'password is required',
                 }
               )
             }
