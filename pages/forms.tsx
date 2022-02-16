@@ -5,23 +5,36 @@ interface LoginForm
 {
     username: string,
     email: string,
-    password: string
+    password: string,
+    errors?: string
 }
 
 
 
 export default function Forms()
 {   
-    const { register, handleSubmit , formState:{ errors }} = useForm<LoginForm>()
+    const 
+    { 
+        register, 
+        handleSubmit , 
+        formState:{ errors } , 
+        watch , 
+        setValue,
+        setError
+        
+    } = useForm<LoginForm>({mode: 'onChange'})
+
     const onValid = (data: LoginForm) =>
     {
         console.log('im Ok!')
+        setError('username', {message: 'Taken username'})
     }
+
     const onInvalid = (errors: any) =>
     {
         console.log(errors)
     }
-    console.log(errors)
+
     return(
         <form onSubmit={handleSubmit(onValid, onInvalid)}>
             <input 
@@ -39,7 +52,7 @@ export default function Forms()
             type='text' 
             placeholder='userName' 
             />
-
+            {errors.username?.message}
             <input 
             {...register('email',
                 {
@@ -72,6 +85,7 @@ export default function Forms()
             <input 
             type='submit' 
             value='Create Account'/>
+        {errors.errors?.message}
         </form>
     )
 }
