@@ -10,6 +10,6 @@ export default async function handler(
    res.status(401).end()
  }
 
- console.log(req.body.email)
- res.status(200).end()
+ console.log(req.body)
+ res.json({ok: true})
 }

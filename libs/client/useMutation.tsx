@@ -27,9 +27,10 @@ export default function useMutation(url: string): UseMutationResult
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            }).then((response) => response.json())
+            }).then((response) => response.json().catch(()=> {}))
               .then(setData)
               .catch(setError)
+              .finally(() => setLoading(false))
     }
     return [mutation, {loading, data , error}]
 }
