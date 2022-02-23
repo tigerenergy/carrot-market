@@ -19,7 +19,7 @@ model User {
   avatar          String?
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
-  tokens          Token[]
+  tokens          Token[] 
 }
 
 model Token {
