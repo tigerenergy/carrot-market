@@ -6,11 +6,15 @@ import { withApiSession } from '@libs/server/withSession'
 
 
 async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseType>
+    req: NextApiRequest,
+    res: NextApiResponse<ResponseType>
 ) 
 { 
-
+    console.log(req.query)
+    res.json(
+        {   
+            ok:true
+        })
 }
 
 export default withApiSession(
