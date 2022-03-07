@@ -77,7 +77,7 @@ model Answer {
    post            Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
    postId          Int
    userId          Int
-   anwer           String        @db.MediumText
+   answer          String        @db.MediumText
 }
 
 model Wondering {
