@@ -9,6 +9,7 @@ interface ItemProps
   hearts: number;
 }
 
+
 export default function Item(
 {
   title,
