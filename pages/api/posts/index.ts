@@ -11,7 +11,7 @@ async function handler(
 ) 
 { 
  
- const { body: {question}, session: { user }} = req
+ const { body: {question , latitude , longitude }, session: { user }} = req
  if(req.method === 'POST')
  {
     const post = await client.post.create(
@@ -19,6 +19,8 @@ async function handler(
             data:
             {
                 question,
+                latitude,
+                longitude,
                 user:
                 {
                     connect:
