@@ -7,25 +7,28 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  const {
+  const 
+  {
     query: { id },
     session: { user },
   } = req
-  const alreadyExists = await client.wondering.findFirst({
+  const alreadyExists = await client.wondering.findFirst(
+  {
     where: 
     {
-      userId: user?.id ,
-      postId: +id.toString() ,
+      userId: user?.id,
+      postId: +id.toString(),
     },
     select: 
     {
-      id: true ,
+      id: true,
     },
   })
   if (alreadyExists) {
     await client.wondering.delete(
     {
-      where: {
+      where: 
+      {
         id: alreadyExists.id,
       },
     })
@@ -52,14 +55,14 @@ async function handler(
     })
   }
   res.json(
-  {
+    {
     ok: true,
   })
 }
 
 export default withApiSession(
   withHandler(
-  {
+    {
     methods: ['POST'],
     handler,
   })
