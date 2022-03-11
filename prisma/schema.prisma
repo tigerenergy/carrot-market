@@ -24,6 +24,8 @@ model User {
   posts           Post[]
   answers         Answer[]
   Wondering       Wondering[]
+  writtenReviews  Review[]       @relation(name: "writtenReviews")
+  receivedReviews Review[]       @relation(name: "receivedReviews")
 }
 
 model Token {
@@ -90,4 +92,15 @@ model Wondering {
    userId          Int
    post            Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
    postId          Int
+}
+
+model Review {
+   id              Int           @id @default(autoincrement())
+   createdAt       DateTime      @default(now())
+   updatedAt       DateTime      @updatedAt
+   review          String        @db.MediumText
+   createdBy       User          @relation(name:"writtenReviews", fields: [createdById] , references: [id] , onDelete: Cascade)
+   createdById     Int
+   createdFor      User          @relation(name:"receivedReviews",fields: [createdForId] , references: [id] , onDelete: Cascade) 
+   createdForId    Int
 }
