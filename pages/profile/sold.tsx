@@ -5,18 +5,17 @@ import useSWR from 'swr';
 
 const Sold: NextPage = () => 
 {
-  const { data } = useSWR('/api/users/sales')
+  const { data } = useSWR('/api/users/me/sales')
   return (
     <Layout title='판매내역' canGoBack>
       <div className='flex flex-col space-y-5 pb-10  divide-y'>
-        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
-          <Item
-            id={i}
-            key={i}
-            title='iPhone 14'
-            price={99}
-            comments={1}
-            hearts={1}
+        {data?.sales?.map((record:any) => (
+          <Item 
+          id={record.product.id} 
+          key={record.id} 
+          title={record.product.name} 
+          price={record.product.price} 
+          hearts={record.product._count.favs}
           />
         ))}
       </div>
