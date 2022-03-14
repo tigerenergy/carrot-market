@@ -19,7 +19,19 @@ async function handler(
         },
         include:
         {
-            product: true , 
+            product:
+            {
+                include:
+                {
+                    _count:
+                    {
+                        select:
+                        {
+                            favs: true
+                        },
+                    },
+                },
+            },
         },
      })
  res.json(
