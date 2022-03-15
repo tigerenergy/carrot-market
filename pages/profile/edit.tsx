@@ -1,10 +1,21 @@
 import type { NextPage } from 'next'
-import Button from '../../components/button'
-import Input from '../../components/input'
-import Layout from '../../components/layout'
+import Button from '@components/button'
+import Input from '@components/input'
+import Layout from '@components/layout'
+import useUser from '@libs/client/useUser'
+import { useForm } from 'react-hook-form'
+
+interface EditProfileForm
+{
+  email?: string
+  phone?: string
+}
+
 
 const EditProfile: NextPage = () => 
-{
+{ 
+  const { user } = useUser()
+  const { register } = useForm<EditProfileForm>()
   return (
     <Layout canGoBack title='Edit Profile'>
       <form className='py-10 px-4 space-y-4'>
@@ -23,8 +34,14 @@ const EditProfile: NextPage = () =>
             />
           </label>
         </div>
-        <Input required label='Email address' name='email' type='email' />
+        <Input 
+          register ={register('email')}
+          required 
+          label='Email address' 
+          name='email' 
+          type='email' />
         <Input
+          register ={register('phone')}
           required
           label='Phone number'
           name='phone'
