@@ -1,9 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import { cls } from '../libs/client/utils'
+import { cls } from '@libs/client/utils'
 import { useRouter } from 'next/router'
-interface LayoutProps 
-{
+interface LayoutProps {
   title?: string
   canGoBack?: boolean
   hasTabBar?: boolean
@@ -14,11 +13,9 @@ export default function Layout({
   canGoBack,
   hasTabBar,
   children,
-}: LayoutProps) 
-{
+}: LayoutProps) {
   const router = useRouter()
-  const onClick = () => 
-  {
+  const onClick = () => {
     router.back()
   }
   return (
@@ -127,11 +124,11 @@ export default function Layout({
               <span>채팅</span>
             </a>
           </Link>
-          <Link href='/live'>
+          <Link href='/streams'>
             <a
               className={cls(
                 'flex flex-col items-center space-y-2 ',
-                router.pathname === '/live'
+                router.pathname === '/streams'
                   ? 'text-orange-500'
                   : 'hover:text-gray-500 transition-colors'
               )}
