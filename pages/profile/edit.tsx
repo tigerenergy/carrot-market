@@ -5,18 +5,25 @@ import Layout from '@components/layout'
 import useUser from '@libs/client/useUser'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
+import useMutation from '@libs/client/useMutation'
 
 interface EditProfileForm
 {
   email?: string
   phone?: string
+  formErrors?: string
 }
 
+interface EditProfileResponse
+{
+  ok: boolean
+  error?: string
+}
 
 const EditProfile: NextPage = () => 
 { 
   const { user } = useUser()
-  const { register , setValue , handleSubmit} = useForm<EditProfileForm>()
+  const { register , setValue , handleSubmit , setError, formState:{errors} } = useForm<EditProfileForm>()
 
   useEffect(()=>
   {
@@ -29,10 +36,26 @@ const EditProfile: NextPage = () =>
       setValue('phone' , user.phone)
     }
   },[user, setValue])
-  const onValid = (form:EditProfileForm) =>
+  const [ editProfile , { data , loading }] = useMutation<EditProfileResponse>(`api/users/me`)
+  const onValid = ({email , phone}:EditProfileForm) =>
   {
-    console.log(form)
+    if(loading) return
+    if(email === '' && phone === '')
+    {
+      return setError('formErrors' , 
+      { 
+        message:'Email OR phone number are required, You need to choose one.',
+      })
+    }
+    editProfile({ email , phone })
   }
+  useEffect(()=>
+  {
+    if(data && !data.ok && data.error)
+    {
+      setError('formErrors' , {message: data.error})  
+    }
+  },[ data ])
   return (
     <Layout canGoBack title='Edit Profile'>
       <form onSubmit={handleSubmit(onValid)} className='py-10 px-4 space-y-4'>
@@ -53,19 +76,19 @@ const EditProfile: NextPage = () =>
         </div>
         <Input 
           register ={register('email')}
-          required 
+          required ={false}
           label='Email address' 
           name='email' 
           type='email' />
         <Input
           register ={register('phone')}
-          required
+          required ={false}
           label='Phone number'
           name='phone'
           type='number'
-          kind='phone'
-        />
-        <Button text='Update profile' />
+          kind='phone' />
+        {errors.formErrors ? <span className='my-2 text-red-500 font-md block'>{errors.formErrors.message}</span> : null}
+        <Button text={loading ? 'Loading ...' : 'Update profile'}/>
       </form>
     </Layout>
   )
