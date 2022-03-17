@@ -102,7 +102,7 @@ const CommunityPostDetail: NextPage = () => {
             </p>
             <Link href={`/users/profiles/${data?.post?.user?.id}`}>
               <a className='text-xs font-medium text-gray-500'>
-                View profile &rarr
+                View profile &rarr;
               </a>
             </Link>
           </div>

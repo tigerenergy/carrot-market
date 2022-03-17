@@ -12,7 +12,7 @@ import { Stream } from '@prisma/client'
 interface CreatForm
 {
   name: string
-  price: number
+  price: string
   description: string
 }
 
@@ -50,7 +50,7 @@ const Create: NextPage = () =>
         type='text' />
         <Input
           required
-          register={register('price', {required: true})}
+          register={register('price', {required: true , valueAsNumber: true})}
           label='Price'
           name='price'
           type='text'
