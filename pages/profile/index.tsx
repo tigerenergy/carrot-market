@@ -33,7 +33,7 @@ const Profile: NextPage = () =>
          
           {user?.avatar ? 
           <img 
-          src={`https://imagedelivery.net/iv2WwjdldtCTZq03LtXe7A/${user?.avatar}/public`}
+          src={`https://imagedelivery.net/iv2WwjdldtCTZq03LtXe7A/${user?.avatar}/avatar`}
           className='w-16 h-16 bg-slate-500 rounded-full'/> : 
           <div className='w-16 h-16 bg-slate-500 rounded-full'/>}
 
