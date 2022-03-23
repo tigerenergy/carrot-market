@@ -31,15 +31,18 @@ const EditProfile: NextPage = () => {
     formState: { errors },
   } = useForm<EditProfileForm>()
 
-  useEffect(() => {
+  useEffect(() => 
+  {
     if (user?.name) setValue('name', user.name)
     if (user?.email) setValue('email', user.email)
     if (user?.phone) setValue('phone', user.phone)
+    if (user?.avatar) setAvatarPreview(`https://imagedelivery.net/iv2WwjdldtCTZq03LtXe7A/${user?.avatar}/public`)
   }, [user, setValue])
   
   const [avatarPreview , setAvatarPreview] = useState('')
   const avatar = watch('avatar')
-  useEffect(() => {
+  useEffect(() => 
+  {
     if(avatar && avatar.length > 0)
     {
       const file = avatar[0]
@@ -47,42 +50,46 @@ const EditProfile: NextPage = () => {
     }
   },[avatar])
 
-  const [editProfile, { data, loading }] =
-    useMutation<EditProfileResponse>(`/api/users/me`)
-  const onValid = async ({ email, phone, name , avatar }: EditProfileForm) => {
+  const [editProfile, { data, loading }] = useMutation<EditProfileResponse>(`/api/users/me`)
+  const onValid = async ({ email, phone, name , avatar }: EditProfileForm) => 
+  {
     if (loading) return
-    if (email === '' && phone === '' && name === '') {
+    if (email === '' && phone === '' && name === '') 
+    {
       return setError('formErrors', {
         message: 'Email OR Phone number are required. You need to choose one.',
       })
     }
     if(avatar && avatar.length > 0 && user)
     { 
-      const {id , uploadURL } = await ( await fetch(`/api/files`)).json() 
+      const { uploadURL } = await ( await fetch(`/api/files`)).json() 
       const form = new FormData()
       form.append('file', avatar[0], user.id + '')
-      await fetch(uploadURL,
+      const {result: {id}} = await ( await fetch(uploadURL,
         {
           method: 'POST',
           body: form
-        })
-      
-      return
-      editProfile({
+        })).json()
+      console.log(id)
+      editProfile(
+      {
         email,
         phone,
         name,
+        avatarId: id ,
       })
     }else
     {
-      editProfile({
+      editProfile(
+      {
         email,
         phone,
         name,
       })
     }
   }
-  useEffect(() => {
+  useEffect(() => 
+  {
     if (data && !data.ok && data.error) {
       setError('formErrors', { message: data.error })
     }
@@ -91,7 +98,7 @@ const EditProfile: NextPage = () => {
     <Layout canGoBack title='Edit Profile'>
       <form onSubmit={handleSubmit(onValid)} className='py-10 px-4 space-y-4'>
         <div className='flex items-center space-x-3'>
-          {avatarPreview ? <img src={avatarPreview} className='w-14 h-14 rounded-full bg-slate-500' /> :  <div className='w-14 h-14 rounded-full bg-slate-500' />}
+          {avatarPreview ? <img src={`https://imagedelivery.net/iv2WwjdldtCTZq03LtXe7A/${user?.avatar}/public`} className='w-14 h-14 rounded-full bg-slate-500' /> :  <div className='w-14 h-14 rounded-full bg-slate-500' />}
           <label
             htmlFor='picture'
             className='cursor-pointer py-2 px-3 border hover:bg-gray-50 border-gray-300 rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 text-gray-700'
