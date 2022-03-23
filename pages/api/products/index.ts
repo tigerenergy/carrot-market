@@ -6,12 +6,16 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  if (req.method === 'GET') {
+  if (req.method === 'GET') 
+  {
     const products = await client.product.findMany(
     {
-      include: {
-        _count: {
-          select: {
+      include: 
+      {
+        _count: 
+        {
+          select: 
+          {
             favs: true,
           },
         },

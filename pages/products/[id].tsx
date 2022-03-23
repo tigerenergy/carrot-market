@@ -46,13 +46,15 @@ const ItemDetail: NextPage = () => {
               src={`https://imagedelivery.net/iv2WwjdldtCTZq03LtXe7A/${data?.product?.user?.avatar}/avatar`}
               className='w-12 h-12 rounded-full bg-slate-300'
             />
+
+            
             <div>
               <p className='text-sm font-medium text-gray-700'>
                 {data?.product?.user?.name}
               </p>
               <Link href={`/users/profiles/${data?.product?.user?.id}`}>
                 <a className='text-xs font-medium text-gray-500'>
-                  View profile &rarr
+                  View profile &rarr;
                 </a>
               </Link>
             </div>
