@@ -6,7 +6,8 @@ import Layout from '@components/layout'
 import Head from 'next/head'
 import useSWR from 'swr'
 import { Product } from '@prisma/client'
-
+import Image from 'next/image'
+import Yerin from '../public/local.jpeg'
 
 
 export interface ProductWithCount extends Product 
@@ -60,6 +61,7 @@ const Home: NextPage = () =>
           </svg>
         </FloatingButton>
       </div>
+      <Image src={Yerin} placeholder='blur'/>
     </Layout>
   )
 }
