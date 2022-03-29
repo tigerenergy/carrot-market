@@ -16,14 +16,15 @@ async function handler(
           `https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ID}/images/v1/direct_upload`,
           {
             method: 'POST',
-            headers: {
+            headers: 
+            {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${process.env.CF_TOKEN}`,
+              Authorization: `Bearer ${process.env.CF_IMAGES_TOKEN}`,
             },
           }
         )
-      ).json();
-      console.log(response);
+      ).json()
+      console.log(response)
  res.json(
      {
          ok: true,
