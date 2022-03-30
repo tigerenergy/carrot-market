@@ -1,64 +1,63 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { useState ,useEffect } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '@components/button'
 import Input from '@components/input'
 import useMutation from '@libs/client/useMutation'
 import { cls } from '@libs/client/utils'
-interface EnterForm 
-{
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+// import Bs from '@components/bs'
+
+const Bs = dynamic(
+  //@ts-ignore
+  () =>
+    new Promise((resolve) =>
+      setTimeout(() => resolve(import('@components/bs')), 10000)
+    ),
+  { ssr: false, suspense: true, loading: () => <span>loading</span> }
+)
+interface EnterForm {
   email?: string
   phone?: string
 }
-
-interface TokenForm 
-{
+interface TokenForm {
   token: string
 }
-
-interface MutationResult 
-{
+interface MutationResult {
   ok: boolean
 }
-
-const Enter: NextPage = () => 
-{
-  const [enter, { loading, data, error }] = useMutation<MutationResult>('/api/users/enter')
-  const [confirmToken, { loading: tokenLoading, data: tokenData }] = useMutation<MutationResult>('/api/users/confirm')
+const Enter: NextPage = () => {
+  const [enter, { loading, data, error }] =
+    useMutation<MutationResult>('/api/users/enter')
+  const [confirmToken, { loading: tokenLoading, data: tokenData }] =
+    useMutation<MutationResult>('/api/users/confirm')
   const { register, handleSubmit, reset } = useForm<EnterForm>()
-  const { register: tokenRegister, handleSubmit: tokenHandleSubmit } = useForm<TokenForm>()
+  const { register: tokenRegister, handleSubmit: tokenHandleSubmit } =
+    useForm<TokenForm>()
   const [method, setMethod] = useState<'email' | 'phone'>('email')
-  const onEmailClick = () => 
-  {
+  const onEmailClick = () => {
     reset()
     setMethod('email')
   }
-  const onPhoneClick = () => 
-  {
+  const onPhoneClick = () => {
     reset()
     setMethod('phone')
   }
-  const onValid = (validForm: EnterForm) => 
-  {
+  const onValid = (validForm: EnterForm) => {
     if (loading) return
     enter(validForm)
   }
-  const onTokenValid = (validForm: TokenForm) => 
-  {
+  const onTokenValid = (validForm: TokenForm) => {
     if (tokenLoading) return
     confirmToken(validForm)
   }
-  
   const router = useRouter()
-  useEffect(()=>
-  {
-    if(tokenData?.ok)
-    {
+  useEffect(() => {
+    if (tokenData?.ok) {
       router.push('/')
     }
-  },[tokenData, router])
-
+  }, [tokenData, router])
   return (
     <div className='mt-16 px-4'>
       <h3 className='text-3xl font-bold text-center'>Enter to Carrot</h3>
@@ -126,14 +125,19 @@ const Enter: NextPage = () =>
                 />
               ) : null}
               {method === 'phone' ? (
-                <Input
-                  register={register('phone')}
-                  name='phone'
-                  label='Phone number'
-                  type='number'
-                  kind='phone'
-                  required
-                />
+                <>
+                  <Suspense fallback={<button>loading!!</button>}>
+                    <Bs />
+                  </Suspense>
+                  <Input
+                    register={register('phone')}
+                    name='phone'
+                    label='Phone number'
+                    type='number'
+                    kind='phone'
+                    required
+                  />
+                </>
               ) : null}
               {method === 'email' ? (
                 <Button text={loading ? 'Loading' : 'Get login link'} />
@@ -144,7 +148,6 @@ const Enter: NextPage = () =>
             </form>
           </>
         )}
-
         <div className='mt-8'>
           <div className='relative'>
             <div className='absolute w-full border-t border-gray-300' />

@@ -4,34 +4,29 @@ import client from '@libs/server/client'
 import { withApiSession } from '@libs/server/withSession'
 
 
+
 async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  if (req.method === 'POST') 
-  {
+  if (req.method === 'POST') {
     const {
       body: { question, latitude, longitude },
       session: { user },
     } = req
-    const post = await client.post.create(
-    {
-      data: 
-      {
+    const post = await client.post.create({
+      data: {
         question,
         latitude,
         longitude,
-        user: 
-        {
-          connect: 
-          {
+        user: {
+          connect: {
             id: user?.id,
           },
         },
       },
     })
-    res.json(
-    {
+    res.json({
       ok: true,
       post,
     })
@@ -41,52 +36,47 @@ async function handler(
       query: { latitude, longitude },
     } = req
     const parsedLatitude = parseFloat(latitude.toString())
-    const parsedLongitude = parseFloat(longitude.toString())
-    const posts = await client.post.findMany(
-    {
-      include: 
-     {
-        user: 
-        {
-          select: 
-          {
-            id: true,
-            name: true,
-            avatar: true,
+    const parsedLongitue = parseFloat(longitude.toString())
+    client.$queryRaw`SET SESSION sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'`.then(
+      async () => {
+        const posts = await client.post.findMany({
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                avatar: true,
+              },
+            },
+            _count: {
+              select: {
+                wondering: true,
+                answers: true,
+              },
+            },
           },
-        },
-        _count: 
-        {
-          select: 
-          {
-            wondering: true,
-            answers: true,
+          where: {
+            latitude: {
+              gte: parsedLatitude - 0.01,
+              lte: parsedLatitude + 0.01,
+            },
+            longitude: {
+              gte: parsedLongitue - 0.01,
+              lte: parsedLongitue + 0.01,
+            },
           },
-        },
-      },
-      where: {
-        latitude: 
-        {
-          gte: parsedLatitude - 0.01,
-          lte: parsedLatitude + 0.01,
-        },
-        longitude: 
-        {
-          gte: parsedLongitude - 0.01,
-          lte: parsedLongitude + 0.01,
-        },
-      },
-    })
-    res.json(
-    {
-      ok: true,
-      posts,
-    })
+        })
+        res.json({
+          ok: true,
+          posts,
+        })
+      }
+    )
   }
 }
+
 export default withApiSession(
-  withHandler(
-      {
+  withHandler({
     methods: ['GET', 'POST'],
     handler,
   })
