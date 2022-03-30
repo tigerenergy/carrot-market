@@ -4,9 +4,10 @@ import FloatingButton from '@components/floating-button'
 import Item from '@components/item'
 import Layout from '@components/layout'
 import Head from 'next/head'
-import useSWR from 'swr'
+import useSWR , { SWRConfig } from 'swr'
 import { Product } from '@prisma/client'
 import Image from 'next/image'
+import client from '@libs/server/client'
 
 
 export interface ProductWithCount extends Product 
@@ -24,7 +25,8 @@ interface ProductsResponse
 
 
 const Home: NextPage = () => 
-{ 
+{
+
   const {user , isLoading } = useUser()
   const { data } = useSWR<ProductsResponse>('/api/products')
   return (
@@ -33,16 +35,16 @@ const Home: NextPage = () =>
         <title>Home</title>
       </Head>
       <div className='flex flex-col space-y-5 divide-y'>
-        {data?.products?.map((product) => (
+        {data ? data?.products?.map((product) => (
           <Item
             id={product.id}
             key={product.id}
             title={product.name}
-            image={product.image}
             price={product.price}
-            hearts={product._count.favs}
+            hearts={product._count?.favs}
+            image={product.image}
           />
-        ))}
+        )) : 'Loading...'}
         <FloatingButton href='/products/upload'>
           <svg
             className='h-6 w-6'
@@ -64,4 +66,36 @@ const Home: NextPage = () =>
     </Layout>
   )
 }
-export default Home
+
+const Page: NextPage<{products:ProductWithCount}> = ({products}) =>
+{
+  return(
+    <SWRConfig 
+    value=
+    {
+      {fallback:
+        {'/api/products':
+          {ok: true , 
+           products
+          }
+        }
+      }
+    }>
+      <Home />
+    </SWRConfig>
+  )
+}
+
+export async function getServerSideProps()
+{
+  const products = await client.product.findMany({})
+  return{
+    props:
+    {
+      product: JSON.parse(JSON.stringify(products))
+    }
+  }
+}
+
+
+export default Page
