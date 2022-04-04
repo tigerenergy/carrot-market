@@ -6,7 +6,7 @@ import useSWR , { SWRConfig } from 'swr'
 import { Review, User } from '@prisma/client'
 import { cls } from '@libs/client/utils'
 import { withSsrSession } from '@libs/server/withSession'
-
+import client from '@libs/server/client'
 
 interface ReviewWithUser extends Review
 {
@@ -148,10 +148,14 @@ const Profile: NextPage = () =>
   )
 }
 
-const Page: NextPage = () =>
+const Page: NextPage<{profile:User}> = ({profile}) =>
 {
   return(
-    <SWRConfig>
+    <SWRConfig value={{
+      fallback:{
+        'api/users/me': { ok: true , profile},
+      },
+    }}>
       <Profile/>
     </SWRConfig>
   )
@@ -159,9 +163,13 @@ const Page: NextPage = () =>
 
 export const getServerSideProps = withSsrSession(async function(
   {req}: NextPageContext) {
-  console.log(req?.session.user)
+  const profile = await client.user.findUnique({
+    where:{ id: req?.session.user?.id}, 
+  })
   return {
-    props: {},
+    props: {
+      profile:JSON.parse(JSON.stringify(profile))
+    },
   }
 })
 
