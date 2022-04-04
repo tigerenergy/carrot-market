@@ -1,10 +1,11 @@
-import type { NextPage } from 'next'
+import type { NextPage, NextPageContext } from 'next'
 import Link from 'next/link'
 import Layout from '@components/layout'
-import useUser from '@libs/client/useUser';
-import useSWR  from 'swr';
-import { Review, User } from '@prisma/client';
-import { cls } from '@libs/client/utils';
+import useUser from '@libs/client/useUser'
+import useSWR , { SWRConfig } from 'swr'
+import { Review, User } from '@prisma/client'
+import { cls } from '@libs/client/utils'
+import { withSsrSession } from '@libs/server/withSession'
 
 
 interface ReviewWithUser extends Review
@@ -146,4 +147,22 @@ const Profile: NextPage = () =>
     </Layout>
   )
 }
-export default Profile
+
+const Page: NextPage = () =>
+{
+  return(
+    <SWRConfig>
+      <Profile/>
+    </SWRConfig>
+  )
+}
+
+export const getServerSideProps = withSsrSession(async function(
+  {req}: NextPageContext) {
+  console.log(req?.session.user)
+  return {
+    props: {},
+  }
+})
+
+export default Page
