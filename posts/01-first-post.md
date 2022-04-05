@@ -1,5 +1,9 @@
-# welcome everyone!
+---
+title: Welcome Everyone
+date: 2022.04.05
+category: thougths
+---
 
-This is my first blog post!
+# Welcome everyone!
 
-Thank you for reading
+This is my fist blog post!
