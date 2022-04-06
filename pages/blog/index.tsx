@@ -25,8 +25,8 @@ const Blog: NextPage<{ posts: Post[] }> = ({ posts }) => {
           <span className='text-lg text-red-500'>{post.title}</span>
           <div>
             <span>
-            {post.title}  {post.date}  {post.category}
-            </span>      
+            {post.date} / {post.category}
+            </span>
           </div>
           </a>
           </Link>
